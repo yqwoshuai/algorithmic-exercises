@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>归并排序</title>
+  </head>
+  <body>
+    <script src="../util/test.js"></script>
+    <script>
+      function mergeSort(arr) {
+        function _merge(arr, l, mid, r) {
+          let space = [];
+          for (let i = l; i <= r; i++) {
+            space[i - l] = arr[i];
+          }
+          let i = l,
+            j = mid + 1;
+          for (let k = l; k <= r; k++) {
+            if (i > mid) {
+              arr[k] = space[j - l];
+              j++;
+            } else if (j > r) {
+              arr[k] = space[i - l];
+              i++;
+            } else if (space[i - l] < space[j - l]) {
+              arr[k] = space[i - l];
+              i++;
+            } else {
+              arr[k] = space[j - l];
+              j++;
+            }
+          }
+        }
+
+        function _mergeSort(arr, l, r) {
+          if (l >= r) {
+            return;
+          }
+          let mid = Math.floor((l + r) / 2);
+          _mergeSort(arr, l, mid);
+          _mergeSort(arr, mid + 1, r);
+          if (arr[mid] > arr[mid + 1]) {
+            _merge(arr, l, mid, r);
+          }
+        }
+
+        _mergeSort(arr, 0, arr.length - 1);
+
+        return arr;
+      }
+      countTime(document.title, mergeSort, createArr(50000, 1, 50000));
+      countTime(document.title, mergeSort, createOrderArr(50000, 10));
+    </script>
+  </body>
+</html>
