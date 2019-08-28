@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>快速排序</title>
+  </head>
+  <body>
+    <script src="../util/test.js"></script>
+    <script>
+      function quickSort(arr) {
+        function _partition(arr, l, r) {
+          let random = Math.floor(Math.random() * (r - l) + l);
+          let begin = arr[random];
+          arr[random] = arr[l];
+          arr[l] = begin;
+          let curi = arr[l];
+
+          let j = l;
+          for (let i = l + 1; i <= r; i++) {
+            if (arr[i] < curi) {
+              let mid = arr[i];
+              arr[i] = arr[j + 1];
+              arr[j + 1] = mid;
+              j++;
+            }
+          }
+
+          arr[l] = arr[j];
+          arr[j] = curi;
+          return j;
+        }
+        function _quickSort(arr, l, r) {
+          if (l >= r) {
+            return;
+          }
+          let p = _partition(arr, l, r);
+          _quickSort(arr, l, p - 1);
+          _quickSort(arr, p + 1, r);
+        }
+        _quickSort(arr, 0, arr.length - 1);
+        return arr;
+      }
+
+      // 双路快速排序
+      function quickSortDouble(arr) {
+        function _partitionDouble(arr, l, r) {
+          let random = Math.floor(Math.random() * (r - l) + l);
+          let begin = arr[random];
+          arr[random] = arr[l];
+          arr[l] = begin;
+          let curi = arr[l];
+
+          let i = l + 1,
+            j = r;
+          while (true) {
+            while (i <= r && arr[i] < curi) {
+              i++;
+            }
+            while (j >= l + 1 && arr[j] > curi) {
+              j--;
+            }
+            if (i > j) {
+              break;
+            }
+            let mid = arr[i];
+            arr[i] = arr[j];
+            arr[j] = mid;
+            i++;
+            j--;
+          }
+          let mid = arr[l];
+          arr[l] = arr[j];
+          arr[j] = mid;
+          return j;
+        }
+        function _quickSortDouble(arr, l, r) {
+          if (l >= r) {
+            return;
+          }
+          let p = _partitionDouble(arr, l, r);
+          _quickSortDouble(arr, l, p - 1);
+          _quickSortDouble(arr, p + 1, r);
+        }
+        _quickSortDouble(arr, 0, arr.length - 1);
+        return arr;
+      }
+
+      // 三路快速排序
+      function quickSortThrid(arr) {
+        function _quickSortThrid(arr, l, r) {
+          if (l >= r) {
+            return;
+          }
+
+          let random = Math.floor(Math.random() * (r - l) + l);
+          let begin = arr[random];
+          arr[random] = arr[l];
+          arr[l] = begin;
+          let curi = arr[l];
+
+          let lt = l;
+          let gt = r + 1;
+          let i = l + 1;
+          while (i < gt) {
+            if (arr[i] < curi) {
+              let mid = arr[lt + 1];
+              arr[lt + 1] = arr[i];
+              arr[i] = mid;
+              lt++;
+              i++;
+            } else if (arr[i] > curi) {
+              let mid = arr[gt - 1];
+              arr[gt - 1] = arr[i];
+              arr[i] = mid;
+              gt--;
+            } else {
+              i++;
+            }
+          }
+
+          let mid = arr[lt];
+          arr[lt] = arr[l];
+          arr[l] = mid;
+
+          _quickSortThrid(arr, l, lt - 1);
+          _quickSortThrid(arr, gt, r);
+        }
+        _quickSortThrid(arr, 0, arr.length - 1);
+        return arr;
+      }
+
+      countTime(document.title, quickSort, createArr(100000, 1, 100000));
+      countTime(document.title + '（近乎有序数组）', quickSort, createOrderArr(100000, 10));
+      countTime(document.title + '双路快排', quickSortDouble, createArr(100000, 1, 100000));
+      countTime(document.title + '双路快排' + '（近乎有序数组）', quickSortDouble, createOrderArr(100000, 10)
+      );
+      countTime(document.title + '三路快排', quickSortThrid, createArr(100000, 1, 100000));
+      countTime(document.title + '三路快排' + '（近乎有序数组）', quickSortThrid, createOrderArr(100000, 10)
+      );
+    </script>
+  </body>
+</html>

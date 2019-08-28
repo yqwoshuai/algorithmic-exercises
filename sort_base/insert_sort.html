@@ -34,7 +34,7 @@
       }
 
       function insertSortRange(arr, l, r) {
-        for (let i = l+1; i <= r; i++) {
+        for (let i = l + 1; i <= r; i++) {
           let curi = arr[i];
           let j = i;
           for (j; j > 0 && arr[j - 1] > curi; j--) {
@@ -44,9 +44,11 @@
         }
         return arr;
       }
-      
+
       countTime(document.title, insertSort, createArr(50000, 1, 50000));
-      countTime(document.title, insertSortBetter, createArr(50000, 1, 50000));
+      countTime(document.title + '（近乎有序数组）', insertSort, createOrderArr(50000, 1, 50000));
+      countTime(document.title + '改进', insertSortBetter, createArr(50000, 1, 50000));
+      countTime(document.title + '改进' + '（近乎有序数组）', insertSortBetter, createOrderArr(50000, 1, 50000));
     </script>
   </body>
 </html>
