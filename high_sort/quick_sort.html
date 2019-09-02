@@ -131,14 +131,17 @@
         return arr;
       }
 
-      countTime(document.title, quickSort, createArr(100000, 1, 100000));
-      countTime(document.title + '（近乎有序数组）', quickSort, createOrderArr(100000, 10));
-      countTime(document.title + '双路快排', quickSortDouble, createArr(100000, 1, 100000));
-      countTime(document.title + '双路快排' + '（近乎有序数组）', quickSortDouble, createOrderArr(100000, 10)
+      countTime(document.title, quickSort, createArr(1000000, 1, 1000000));
+      countTime(document.title + '（近乎有序数组）', quickSort, createOrderArr(1000000, 10));
+      countTime(document.title + '（大量重复数据数组）', quickSort, createArr(1000000, 1, 100));
+      countTime(document.title + '双路快排', quickSortDouble, createArr(1000000, 1, 1000000));
+      countTime(document.title + '双路快排' + '（近乎有序数组）', quickSortDouble, createOrderArr(1000000, 10)
       );
-      countTime(document.title + '三路快排', quickSortThrid, createArr(100000, 1, 100000));
-      countTime(document.title + '三路快排' + '（近乎有序数组）', quickSortThrid, createOrderArr(100000, 10)
+      countTime(document.title + '双路快排' + '（大量重复数据数组）', quickSortDouble, createArr(1000000, 1, 100));
+      countTime(document.title + '三路快排', quickSortThrid, createArr(1000000, 1, 1000000));
+      countTime(document.title + '三路快排' + '（近乎有序数组）', quickSortThrid, createOrderArr(1000000, 10)
       );
+      countTime(document.title + '三路快排' + '（大量重复数据数组）', quickSortThrid, createArr(1000000, 1, 100));
     </script>
   </body>
 </html>

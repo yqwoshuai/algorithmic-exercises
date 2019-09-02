@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>最大堆</title>
+  </head>
+  <body>
+    <script src="../util/test.js"></script>
+    <script>
+      function Maxheap() {
+        this.arr = [null];
+
+        this.size = function() {
+          return this.arr.length - 1;
+        };
+
+        this.insert = function(item) {
+          this.arr.push(item);
+          this.shiftUp(this.arr.length - 1);
+        };
+
+        this.extractMax = function() {
+          let max = this.arr[1];
+          this.arr[1] = this.arr[this.size()];
+          this.arr.pop();
+          this.shiftDown(1);
+          return max;
+        };
+
+        this.shiftUp = function(k) {
+          while (k > 1 && this.arr[Math.floor(k / 2)] < this.arr[Math.floor(k)]) {
+            let mid = this.arr[Math.floor(k / 2)];
+            this.arr[Math.floor(k / 2)] = this.arr[Math.floor(k)];
+            this.arr[Math.floor(k)] = mid;
+            k = Math.floor(k / 2);
+          }
+        };
+
+        this.shiftDown = function(k) {
+          while (2 * k <= this.size()) {
+            let j = 2 * k;
+            if (j + 1 <= this.size() && this.arr[j + 1] > this.arr[j]) {
+              j++;
+            }
+            if (this.arr[j] > this.arr[k]) {
+              let mid = this.arr[k];
+              this.arr[k] = this.arr[j];
+              this.arr[j] = mid;
+            }
+            k = j;
+          }
+        };
+      }
+
+      function heapSort(arr) {
+        const heap = new Maxheap();
+
+        for (let i = 0; i < arr.length; i++) {
+          heap.insert(arr[i]);
+        }
+
+        for (let i = arr.length -1; i >= 0; i--) {
+          arr[i] = (heap.extractMax());
+        }
+
+        return arr
+      }
+
+      countTime(document.title, heapSort, createArr(1000000, 1, 1000000));
+      countTime(document.title + '（近乎有序数组）', heapSort, createOrderArr(1000000, 10));
+      countTime(document.title + '（大量重复数据数组）', heapSort, createArr(1000000, 1, 100));
+    </script>
+  </body>
+</html>

@@ -58,10 +58,12 @@
         return arr;
       }
 
-      countTime(document.title, mergeSort, createArr(100000, 1, 100000));
-      countTime(document.title + '（近乎有序数组）', mergeSort, createOrderArr(100000, 10));
-      countTime(document.title + '自底向上归并', mergeSortBtoU, createArr(100000, 1, 100000));
-      countTime(document.title + '自底向上归并' + '（近乎有序数组）', mergeSortBtoU, createOrderArr(100000, 10));
+      countTime(document.title, mergeSort, createArr(1000000, 1, 1000000));
+      countTime(document.title + '（近乎有序数组）', mergeSort, createOrderArr(1000000, 10));
+      countTime(document.title + '（大量重复数据数组）', mergeSort, createArr(1000000, 1, 100));
+      countTime(document.title + '自底向上归并', mergeSortBtoU, createArr(1000000, 1, 1000000));
+      countTime(document.title + '自底向上归并' + '（近乎有序数组）', mergeSortBtoU, createOrderArr(1000000, 10));
+      countTime(document.title + '自底向上归并' + '（大量重复数据数组）', mergeSortBtoU, createArr(1000000, 1, 100));
     </script>
   </body>
 </html>
