@@ -61,16 +61,40 @@
           heap.insert(arr[i]);
         }
 
-        for (let i = arr.length -1; i >= 0; i--) {
-          arr[i] = (heap.extractMax());
+        for (let i = arr.length - 1; i >= 0; i--) {
+          arr[i] = heap.extractMax();
         }
 
-        return arr
+        return arr;
+      }
+
+      function heapSortBetter(arr) {
+        const heapBetter = new Maxheap();
+
+        for (let i = 0; i < arr.length; i++) {
+          heapBetter.arr.push(arr[i]);
+        }
+
+        for (let i = Math.floor(heapBetter.size() / 2); i >= 1; i--) {
+          heapBetter.shiftDown(i);
+        }
+
+        for (let i = arr.length - 1; i >= 0; i--) {
+          arr[i] = heapBetter.extractMax();
+        }
+
+        return arr;
       }
 
       countTime(document.title, heapSort, createArr(1000000, 1, 1000000));
       countTime(document.title + '（近乎有序数组）', heapSort, createOrderArr(1000000, 10));
       countTime(document.title + '（大量重复数据数组）', heapSort, createArr(1000000, 1, 100));
+
+      // 测试用例执行先后顺序会影响排序时间，后执行的测试用例花的时间有时会比先执行的时间慢1倍左右，但有时候又是正常的
+      // 测试用例写在不同html文件里面就是正常的，优化过后的时间会比优化前花的时间少
+      countTime(document.title + '优化', heapSortBetter, createArr(1000000, 1, 1000000));
+      countTime(document.title + '优化' + '（近乎有序数组）', heapSortBetter, createOrderArr(1000000, 10));
+      countTime(document.title + '优化' + '（大量重复数据数组）', heapSortBetter, createArr(1000000, 1, 100));
     </script>
   </body>
 </html>

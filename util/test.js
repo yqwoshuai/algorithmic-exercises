@@ -2,7 +2,7 @@
 function createArr(n, rangel, ranger) {
   let arr = [];
   for (let i = 0; i < n; i++) {
-    let num = Math.ceil(Math.random() * (ranger - rangel) + rangel);
+    let num = Math.round(Math.random() * (ranger - rangel) + rangel);
     arr.push(num);
   }
   return arr;
