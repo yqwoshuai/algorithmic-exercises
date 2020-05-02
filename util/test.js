@@ -11,10 +11,10 @@ function createArr(n, rangel, ranger) {
 // 创建近乎有序数组
 function createOrderArr(n, x) {
   let arr = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i <= n; i++) {
     arr.push(i);
   }
-  for (let i = 0; i< x; i++){
+  for (let i = 0; i <= x; i++) {
     let changeA = Math.ceil(Math.random() * n)
     let changeB = Math.ceil(Math.random() * n)
     let mid = arr[changeA]

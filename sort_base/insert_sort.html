@@ -1,54 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>插入排序</title>
-  </head>
-  <body>
-    <script src="../util/test.js"></script>
-    <script>
-      function insertSort(arr) {
-        for (let i = 1; i < arr.length; i++) {
-          for (let j = i; j > 0 && arr[j] < arr[j - 1]; j--) {
-            let mid = arr[j];
-            arr[j] = arr[j - 1];
-            arr[j - 1] = mid;
-          }
-        }
-        return arr;
-      }
 
-      // 改进
-      function insertSortBetter(arr) {
-        for (let i = 1; i < arr.length; i++) {
-          let curi = arr[i];
-          let j = i;
-          for (j; j > 0 && arr[j - 1] > curi; j--) {
-            arr[j] = arr[j - 1];
-          }
-          arr[j] = curi;
-        }
-        return arr;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>插入排序</title>
+</head>
 
-      function insertSortRange(arr, l, r) {
-        for (let i = l + 1; i <= r; i++) {
-          let curi = arr[i];
-          let j = i;
-          for (j; j > 0 && arr[j - 1] > curi; j--) {
-            arr[j] = arr[j - 1];
-          }
-          arr[j] = curi;
+<body>
+  <script src="../util/test.js"></script>
+  <script>
+    function insertSort(arr) {
+      // 第0个元素位置不用处理，从第1个元素开始
+      for (let i = 1; i < arr.length; i++) {
+        // 判断当前元素和前一个元素是否需要交换位置
+        for (let j = i; j > 0 && arr[j] < arr[j - 1]; j--) {
+          let mid = arr[j];
+          arr[j] = arr[j - 1];
+          arr[j - 1] = mid;
         }
-        return arr;
       }
+      return arr;
+    }
 
-      countTime(document.title, insertSort, createArr(50000, 1, 50000));
-      countTime(document.title + '（近乎有序数组）', insertSort, createOrderArr(50000, 1, 50000));
-      countTime(document.title + '改进', insertSortBetter, createArr(50000, 1, 50000));
-      countTime(document.title + '改进' + '（近乎有序数组）', insertSortBetter, createOrderArr(50000, 1, 50000));
-    </script>
-  </body>
+    // 改进 通过赋值来取代交换的过程
+    function insertSortBetter(arr) {
+      for (let i = 1; i < arr.length; i++) {
+        // 保存当前元素的副本
+        let curi = arr[i];
+
+        let j = i;
+        // 如果前一个元素比当前元素要大，则将前一个元素赋值给当前元素
+        for (j; j > 0 && arr[j - 1] > curi; j--) {
+          arr[j] = arr[j - 1];
+        }
+        // 循环结束时j的位置之前没有比当前元素更小的了，所以j就是当前元素应该在的位置
+        arr[j] = curi;
+      }
+      return arr;
+    }
+
+    // 对一部分数据进行排序
+    function insertSortRange(arr, l, r) {
+      for (let i = l + 1; i <= r; i++) {
+        let curi = arr[i];
+        let j = i;
+        for (j; j > 0 && arr[j - 1] > curi; j--) {
+          arr[j] = arr[j - 1];
+        }
+        arr[j] = curi;
+      }
+      return arr;
+    }
+
+    countTime(document.title, insertSort, createArr(50000, 1, 50000));
+    countTime(document.title + '（近乎有序数组）', insertSort, createOrderArr(100000, 10));
+    countTime(document.title + '改进', insertSortBetter, createArr(50000, 1, 50000));
+    countTime(document.title + '改进' + '（近乎有序数组）', insertSortBetter, createOrderArr(100000, 10));
+  </script>
+</body>
+
 </html>

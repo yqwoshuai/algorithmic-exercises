@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>选择排序</title>
-  </head>
-  <body>
-    <script src="../util/test.js"></script>
-    <script>
-      function selectSort(arr) {
-        for (let i = 0; i < arr.length; i++) {
-          let min = i;
-          for (let j = i + 1; j < arr.length; j++) {
-            if (arr[j] < arr[min]) {
-              let mid = arr[min];
-              arr[min] = arr[j];
-              arr[j] = mid;
-            }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>选择排序</title>
+</head>
+
+<body>
+  <script src="../util/test.js"></script>
+  <script>
+    function selectSort(arr) {
+      for (let i = 0; i < arr.length; i++) {
+        // 当前需要进行比对的元素，从第一个元素开始
+        let min = i;
+        for (let j = i + 1; j < arr.length; j++) {
+          // 将之后的元素与其进行比对，比它小则交换位置
+          if (arr[j] < arr[min]) {
+            let mid = arr[min];
+            arr[min] = arr[j];
+            arr[j] = mid;
           }
         }
-        return arr
       }
-      countTime(document.title, selectSort, createArr(50000, 1, 50000));
-      countTime(document.title + '（近乎有序数组）', selectSort, createOrderArr(50000, 1, 50000));
-    </script>
-  </body>
+      return arr
+    }
+    countTime(document.title, selectSort, createArr(10000, 1, 10000));
+    countTime(document.title + '（近乎有序数组）', selectSort, createOrderArr(10000, 10));
+  </script>
+</body>
+
 </html>
